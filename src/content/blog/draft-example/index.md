@@ -1,9 +1,7 @@
 ---
-title: "3D Print of the Day"
+title: "Migrating blog"
 date: "2025-03-13"
-draft: true
+draft: false
 ---
 
-This post also demonstrates the year sorting capabilities.
-
-Try setting this file's metadata to `draft: true`.
+This is just a placeholder as I am moving over blog posts, staging them in dev and releasing them to my website as they get converted.

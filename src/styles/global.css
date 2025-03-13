@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  overflow-y: auto;
+  color-scheme: light;
+  scroll-padding-top: 100px;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html,
+body {
+  @apply size-full;
+}
+
+body {
+  @apply font-sans antialiased;
+  @apply flex flex-col;
+  @apply bg-[#fbf1c7] dark:bg-[#282828]; /* Gruvbox background colors */
+  @apply text-[#3c3836] dark:text-[#ebdbb2]; /* Gruvbox text colors */
+}
+
+header {
+  @apply fixed left-0 right-0 top-0 z-50 py-6;
+  @apply bg-[#fbf1c7] dark:bg-[#282828]; /* Gruvbox background colors */
+  @apply saturate-200 backdrop-blur-sm;
+}
+
+main {
+  @apply flex-1 py-32;
+}
+
+footer {
+  @apply py-6 text-sm;
+}
+
+article {
+  @apply prose prose-neutral max-w-full dark:prose-invert prose-img:mx-auto prose-img:my-auto;
+  @apply prose-headings:font-semibold;
+  @apply prose-headings:text-[#928734] prose-headings:dark:text-[#ebdbb2]; /* Gruvbox text colors */
+  @apply bg-[#fbf1c7] dark:bg-[#282828]; /* Gruvbox background colors */
+  @apply text-[#3c3836]/75 dark:text-[#ebdbb2]; /* Gruvbox text colors */
+
+}
+
+@layer utilities {
+  article a {
+    @apply font-sans text-current underline underline-offset-[3px];
+    @apply decoration-[#3c3836] dark:decoration-[#fabd2f]; /* Gruvbox decoration colors */
+    @apply transition-colors duration-300 ease-in-out;
+  }
+  article a:hover {
+    @apply text-[#458588] dark:text-[#d65d0e]; /* Gruvbox text colors */
+    @apply decoration-[#3c3836] dark:decoration-[#ebdbb2]; /* Gruvbox decoration colors */
+  }
+}
+
+.animate {
+  @apply -translate-y-3 opacity-0;
+  @apply transition-all duration-300 ease-out;
+}
+
+.animate.show {
+  @apply translate-y-0 opacity-100;
+}
+
+html #back-to-top {
+  @apply pointer-events-none opacity-0;
+}
+
+html.scrolled #back-to-top {
+  @apply pointer-events-auto opacity-100;
+}
+
+/* shiki config */
+pre {
+  @apply border border-[#3c3836] py-5 dark:border-[#ebdbb2]; /* Gruvbox border colors */
+}
+
+:root {
+  --astro-code-color-text: #3c3836;
+  --astro-code-color-background: #ebdbb2;
+  --astro-code-token-comment: #a89984;
+  --astro-code-token-keyword: #fb4934;
+  --astro-code-token-string: #b8bb26;
+  --astro-code-token-function: #fabd2f;
+  --astro-code-token-constant: #d3869b;
+  --astro-code-token-parameter: #83a598;
+  --astro-code-token-string-expression: #d3869b;
+  --astro-code-token-punctuation: #8ec07c;
+  --astro-code-token-link: #8ec07c;
+}
+
+.dark {
+  --astro-code-color-text: #ebdbb2;
+  --astro-code-color-background: #282828;
+  --astro-code-token-comment: #a89984;
+  --astro-code-token-keyword: #fb4934;
+  --astro-code-token-string: #b8bb26;
+  --astro-code-token-function: #fabd2f;
+  --astro-code-token-constant: #d3869b;
+  --astro-code-token-parameter: #83a598;
+  --astro-code-token-string-expression: #d3869b;
+  --astro-code-token-punctuation: #8ec07c;
+  --astro-code-token-link: #8ec07c;
+}
+
+/* copy code button on codeblocks */
+.copy-code {
+  @apply absolute right-3 top-3 grid size-9 place-content-center rounded border border-[#3c3836]/15 bg-[#fbf1c7] text-center duration-300 ease-in-out dark:border-[#ebdbb2]/20 dark:bg-[#282828];
+}
+
+.copy-code:hover {
+  @apply bg-[#E9E9E9] transition-colors dark:bg-[#232323];
+}
+
+.copy-code:active {
+  @apply scale-90 transition-transform;
+}

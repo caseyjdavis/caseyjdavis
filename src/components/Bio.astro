@@ -1,0 +1,17 @@
+---
+import TextLink from "@components/TextLink.astro";
+import { resolvePath } from "@lib/utils";
+
+type Props = {
+  small?: boolean;
+};
+
+const { small } = Astro.props;
+---
+
+<div style={small ? "font-size: 0.875rem" : ""}>
+  <p>
+    I am a Systems Engineer that loves solving problems with technology. I have worked in technology for over 20 years and use modern tools and methodologies to deploy and maintain systems. I am passionate about learning and sharing knowledge with others.
+  </p>
+
+</div>

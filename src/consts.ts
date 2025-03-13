@@ -18,8 +18,8 @@ export const GLOBAL: GlobalSite = {
   author: "Casey Davis",
   authorPhotoSrc: "/caseyjdavis.png",
   logo: {
-    darkThemeSrc: "/logo/logo_dark.png",
-    lightThemeSrc: "/logo/logo_light.png",
+    darkThemeSrc: "/logo/caseyjdavis_logo.png",
+    lightThemeSrc: "/logo/caseyjdavis_logo.png",
   }
 };
 

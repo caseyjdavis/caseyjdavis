@@ -73,26 +73,6 @@ const talks = await getCollectionEntries("talks", HOME.talkEntries ?? 0);
             </section>
           )
         }
-
-        {
-          talks.length > 0 && (
-            <section class="animate space-y-6">
-              <div class="flex flex-wrap items-center justify-between gap-y-2">
-                <h2 class="font-semibold text-[#282828] dark:text-[#ebdbb2]">
-                  Recent talks
-                </h2>
-                <TextLink href="talks">all talks </TextLink>
-              </div>
-              <ul class="not-prose flex flex-col gap-4">
-                {talks.map((talk) => (
-                  <li>
-                    <TalkCardButton entry={talk} />
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )
-        }
         {
           projects.length > 0 && (
             <section class="animate space-y-6">

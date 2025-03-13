@@ -1,0 +1,374 @@
+<!DOCTYPE html><html lang="en"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.4.2"><!-- Canonical URL --><link rel="canonical" href="https://www.caseyjdavis.com/blog/collections-guide/"><!-- RSS --><link rel="alternate" type="application/rss+xml" title="Collections guide - Casey J Davis" href="/feed.xml"><!-- Primary Meta Tags --><title>Collections guide - Casey J Davis</title><meta name="title" content="Collections guide - Casey J Davis"><meta name="description" content="Steo-by-step guide on adding a blog post or other entry"><meta name="author" content="Casey Davis"><!-- Open Graph / Facebook / LinkedIn --><meta property="og:type" content="article"><meta property="og:url" content="https://www.caseyjdavis.com/blog/collections-guide/"><meta property="og:title" content="Collections guide - Casey J Davis"><meta property="og:description" content="Steo-by-step guide on adding a blog post or other entry"><meta property="og:image" content="https://www.caseyjdavis.com/og-image.png"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://www.caseyjdavis.com/blog/collections-guide/"><meta property="twitter:title" content="Collections guide - Casey J Davis"><meta property="twitter:image" content="https://www.caseyjdavis.com/og-image.png"><meta property="twitter:description" content="Steo-by-step guide on adding a blog post or other entry"><!-- PageFind --><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><!-- Logo --><div id="logo-srcs" style="display: none;" data-dark-src="/logo/logo_dark.png" data-light-src="/logo/logo_light.png"></div><script>
+  function init() {
+    preloadTheme();
+    onScroll();
+    animate();
+    updateThemeButtons();
+    addCopyCodeButtons();
+    setGiscusTheme();
+
+    const backToTop = document.getElementById("back-to-top");
+    backToTop?.addEventListener("click", (event) => scrollToTop(event));
+
+    const backToPrev = document.getElementById("back-to-prev");
+    backToPrev?.addEventListener("click", () => window.history.back());
+
+    const lightThemeButton = document.getElementById("light-theme-button");
+    lightThemeButton?.addEventListener("click", () => {
+      localStorage.setItem("theme", "light");
+      toggleTheme(false);
+      updateThemeButtons();
+    });
+
+    const darkThemeButton = document.getElementById("dark-theme-button");
+    darkThemeButton?.addEventListener("click", () => {
+      localStorage.setItem("theme", "dark");
+      toggleTheme(true);
+      updateThemeButtons();
+    });
+
+    const systemThemeButton = document.getElementById("system-theme-button");
+    systemThemeButton?.addEventListener("click", () => {
+      localStorage.setItem("theme", "system");
+      toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+      updateThemeButtons();
+    });
+
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", (event) => {
+        if (localStorage.theme === "system") {
+          toggleTheme(event.matches);
+        }
+      });
+
+    document.addEventListener("scroll", onScroll);
+  }
+
+  function updateThemeButtons() {
+    const theme = localStorage.getItem("theme");
+    const lightThemeButton = document.getElementById("light-theme-button");
+    const darkThemeButton = document.getElementById("dark-theme-button");
+    const systemThemeButton = document.getElementById("system-theme-button");
+
+    function removeActiveButtonTheme(button) {
+      button?.classList.remove("bg-black/5");
+      button?.classList.remove("dark:bg-white/5");
+    }
+
+    function addActiveButtonTheme(button) {
+      button?.classList.add("bg-black/5");
+      button?.classList.add("dark:bg-white/5");
+    }
+
+    removeActiveButtonTheme(lightThemeButton);
+    removeActiveButtonTheme(darkThemeButton);
+    removeActiveButtonTheme(systemThemeButton);
+
+    if (theme === "light") {
+      addActiveButtonTheme(lightThemeButton);
+    } else if (theme === "dark") {
+      addActiveButtonTheme(darkThemeButton);
+    } else {
+      addActiveButtonTheme(systemThemeButton);
+    }
+  }
+
+  function animate() {
+    const animateElements = document.querySelectorAll(".animate");
+
+    animateElements.forEach((element, index) => {
+      setTimeout(() => {
+        element.classList.add("show");
+      }, index * 100);
+    });
+  }
+
+  function onScroll() {
+    if (window.scrollY > 0) {
+      document.documentElement.classList.add("scrolled");
+    } else {
+      document.documentElement.classList.remove("scrolled");
+    }
+  }
+
+  function scrollToTop(event) {
+    event.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+  function getLogoSrc(darkTheme) {
+    const logoSrcs = document.getElementById("logo-srcs");
+    if (!logoSrcs) {
+      return undefined;
+    }
+
+    if (darkTheme) {
+      return (
+        logoSrcs.getAttribute("data-dark-src") ??
+        logoSrcs.getAttribute("data-light-src")
+      );
+    }
+
+    if (!darkTheme) {
+      return (
+        logoSrcs.getAttribute("data-light-src") ??
+        logoSrcs.getAttribute("data-dark-src")
+      );
+    }
+  }
+
+  function toggleTheme(dark) {
+    const css = document.createElement("style");
+
+    css.appendChild(
+      document.createTextNode(
+        `* {
+             -webkit-transition: none !important;
+             -moz-transition: none !important;
+             -o-transition: none !important;
+             -ms-transition: none !important;
+             transition: none !important;
+          }
+        `,
+      ),
+    );
+
+    document.head.appendChild(css);
+
+    if (dark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+    const logoSrc = getLogoSrc(dark);
+    const logo = document.getElementById("logo");
+
+    if (logoSrc && logo) {
+      logo.src = logoSrc;
+    }
+
+    window.getComputedStyle(css).opacity;
+    document.head.removeChild(css);
+
+    setGiscusTheme();
+  }
+
+  function preloadTheme() {
+    const userTheme = localStorage.theme;
+
+    if (userTheme === "light" || userTheme === "dark") {
+      toggleTheme(userTheme === "dark");
+    } else {
+      toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    }
+  }
+
+  function addCopyCodeButtons() {
+    let copyButtonLabel = "📋";
+    let codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    async function copyCode(codeBlock, copyButton) {
+      const codeText = codeBlock.innerText;
+      const buttonText = copyButton.innerText;
+      const textToCopy = codeText.replace(buttonText, "");
+
+      await navigator.clipboard.writeText(textToCopy);
+      copyButton.innerText = "✅";
+
+      setTimeout(() => {
+        copyButton.innerText = copyButtonLabel;
+      }, 2000);
+    }
+
+    for (let codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      const copyButton = document.createElement("button");
+      copyButton.innerText = copyButtonLabel;
+      copyButton.classList = "copy-code";
+
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      codeBlock.parentNode.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton?.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+  }
+
+  const setGiscusTheme = () => {
+    const giscus = document.querySelector(".giscus-frame");
+
+    const isDark = document.documentElement.classList.contains("dark");
+
+    if (giscus) {
+      const url = new URL(giscus.src);
+      url.searchParams.set("theme", isDark ? "dark" : "light");
+      giscus.src = url.toString();
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", () => init());
+  document.addEventListener("astro:after-swap", () => init());
+  preloadTheme();
+</script><link rel="stylesheet" href="/_astro/_page_.DBh1UVO9.css">
+<link rel="stylesheet" href="/_astro/_page_.DhgLW4dE.css">
+<style>summary[data-astro-cid-xvrfupwn]{cursor:pointer;border-top-left-radius:.5rem;border-top-right-radius:.5rem;padding:.375rem .75rem;font-weight:500;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}summary[data-astro-cid-xvrfupwn]:hover{background-color:#0000000d}summary[data-astro-cid-xvrfupwn]:hover:is(.dark *){background-color:#ffffff0d}details[data-astro-cid-xvrfupwn][open] summary[data-astro-cid-xvrfupwn]{background-color:#0000000d}details[data-astro-cid-xvrfupwn][open] summary[data-astro-cid-xvrfupwn]:is(.dark *){background-color:#ffffff0d}
+</style><style>.callout[data-astro-cid-mrmim4ef]{position:relative;margin-top:1rem;margin-bottom:1rem;display:flex;border-radius:.25rem;border-width:1px;--tw-border-opacity: 1;border-color:rgb(154 52 18 / var(--tw-border-opacity, 1));--tw-bg-opacity: 1;background-color:rgb(255 237 213 / var(--tw-bg-opacity, 1));padding:.75rem;--tw-text-opacity: 1;color:rgb(67 20 7 / var(--tw-text-opacity, 1))}.callout[data-astro-cid-mrmim4ef]:is(.dark *){border-color:#fed7aa33;background-color:#43140733;--tw-text-opacity: 1;color:rgb(254 215 170 / var(--tw-text-opacity, 1))}.emoji[data-astro-cid-mrmim4ef]{padding-right:.75rem;font-size:1.25rem;line-height:1.75rem}.callout-info[data-astro-cid-mrmim4ef]{--tw-border-opacity: 1;border-color:rgb(30 64 175 / var(--tw-border-opacity, 1));--tw-bg-opacity: 1;background-color:rgb(219 234 254 / var(--tw-bg-opacity, 1));--tw-text-opacity: 1;color:rgb(23 37 84 / var(--tw-text-opacity, 1))}.callout-info[data-astro-cid-mrmim4ef]:is(.dark *){border-color:#bfdbfe33;background-color:#17255433;--tw-text-opacity: 1;color:rgb(191 219 254 / var(--tw-text-opacity, 1))}.callout-warning[data-astro-cid-mrmim4ef]{--tw-border-opacity: 1;border-color:rgb(133 77 14 / var(--tw-border-opacity, 1));--tw-bg-opacity: 1;background-color:rgb(254 249 195 / var(--tw-bg-opacity, 1));--tw-text-opacity: 1;color:rgb(66 32 6 / var(--tw-text-opacity, 1))}.callout-warning[data-astro-cid-mrmim4ef]:is(.dark *){border-color:#fef08a33;background-color:#42200633;--tw-text-opacity: 1;color:rgb(254 240 138 / var(--tw-text-opacity, 1))}.callout-error[data-astro-cid-mrmim4ef]{--tw-border-opacity: 1;border-color:rgb(153 27 27 / var(--tw-border-opacity, 1));--tw-bg-opacity: 1;background-color:rgb(254 226 226 / var(--tw-bg-opacity, 1));--tw-text-opacity: 1;color:rgb(69 10 10 / var(--tw-text-opacity, 1))}.callout-error[data-astro-cid-mrmim4ef]:is(.dark *){border-color:#fecaca33;background-color:#450a0a33;--tw-text-opacity: 1;color:rgb(254 202 202 / var(--tw-text-opacity, 1))}
+</style></head> <body> <header data-astro-transition-persist="astro-l7r54iwe-1"> <div class="mx-auto max-w-screen-sm px-3"> <div class="flex flex-wrap justify-between gap-y-2"> <a href="/" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out"> <img id="logo" src="/logo/logo_dark.png" alt="Casey J Davis" style="max-width: 240px; max-height:50px"> </a> <nav class="flex items-center gap-1 text-sm"> <a href="/hire-me" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"> hire me </a>    <span>|</span> <a href="/blog" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"> 
+blog
+ </a>   <span>|</span> <a href="/projects" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"> 
+projects
+ </a>  <span>|</span> <button id="magnifying-glass" aria-label="Search" class="text-s flex items-center rounded border border-[#d65d0e] bg-[#282828] px-2 py-1 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:bg-neutral-900 dark:hover:bg-white/5 dark:hover:text-[#ebdbb2] dark:focus-visible:bg-[#d65d0e] dark:focus-visible:text-white"> <svg height="16" stroke-linejoin="round" viewBox="0 0 16 16" width="18" style="color: currentcolor;"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.5 7C3.5 5.067 5.067 3.5 7 3.5C8.933 3.5 10.5 5.067 10.5 7C10.5 7.88461 10.1718 8.69256 9.63058 9.30876L9.30876 9.63058C8.69256 10.1718 7.88461 10.5 7 10.5C5.067 10.5 3.5 8.933 3.5 7ZM9.96544 11.0261C9.13578 11.6382 8.11014 12 7 12C4.23858 12 2 9.76142 2 7C2 4.23858 4.23858 2 7 2C9.76142 2 12 4.23858 12 7C12 8.11014 11.6382 9.13578 11.0261 9.96544L14.0303 12.9697L14.5607 13.5L13.5 14.5607L12.9697 14.0303L9.96544 11.0261Z" fill="currentColor"></path></svg>
+&nbsp;search
+</button> </nav> </div> </div> </header> <main>  <div class="mx-auto max-w-screen-sm px-3"> <div class="animate"> <a href="/blog" class="not-prose group relative flex w-fit flex-nowrap rounded border border-black/15 py-1.5 pl-7 pr-3 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="absolute left-2 top-1/2 size-4 -translate-y-1/2 fill-none stroke-current stroke-2"> <line x1="5" y1="12" x2="19" y2="12" class="translate-x-2 scale-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100 group-focus-visible:translate-x-0 group-focus-visible:scale-x-100"></line> <polyline points="12 5 5 12 12 19" class="translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-focus-visible:translate-x-0"></polyline> </svg> <div class="text-sm"> 
+All blog posts
+ </div> </a> </div> <div class="animate my-10 space-y-1"> <div class="flex items-center gap-1.5"> <div class="font-base text-sm"> <time datetime="2025-01-03T00:00:00.000Z"> 2025-01-03 </time>  </div>
+&bull;
+<div class="font-base text-sm"> 3 min read </div> </div> <h1 class="text-3xl font-semibold text-[#282828] dark:text-[#ebdbb2]"> Collections guide </h1> <p class="text-[#458588] dark:text-[#458588]">Steo-by-step guide on adding a blog post or other entry</p> <div class="flex gap-2 pt-1"> <a href="/tags/guide" class="inline-flex items-center rounded border border-black/15 px-2 py-1 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white"> <svg class="mr-1 h-4 w-4 text-[#d79921]" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"> <line x1="8" y1="3" x2="8" y2="21"></line> <line x1="16" y1="3" x2="16" y2="21"></line> <line x1="3" y1="9" x2="21" y2="9"></line> <line x1="3" y1="15" x2="21" y2="15"></line> </svg> guide  </a> </div> </div> <details open class="animate rounded-lg border border-black/15 dark:border-white/20" data-astro-cid-xvrfupwn> <summary data-astro-cid-xvrfupwn>Table of Contents</summary> <nav class="" data-astro-cid-xvrfupwn> <ul class="py-3" data-astro-cid-xvrfupwn> <li class="list-inside list-disc px-6 py-1.5 text-sm"> <a href="#collection-names" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"> Collection names </a>  </li><li class="list-inside list-disc px-6 py-1.5 text-sm"> <a href="#adding-content-to-the-collection" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"> Adding content to the collection </a> <ul class="translate-x-3"> <li class="list-inside list-disc px-6 py-1.5 text-sm"> <a href="#provide-metadata" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"> Provide metadata </a>  </li><li class="list-inside list-disc px-6 py-1.5 text-sm"> <a href="#write-content" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"> Write content </a>  </li> </ul> </li><li class="list-inside list-disc px-6 py-1.5 text-sm"> <a href="#order" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"> Order </a>  </li> </ul> </nav> </details> <article class="animate"> <hr/>
+<h2 id="collection-names">Collection names</h2>
+<p>Originally, there are three collections:</p>
+<ul>
+<li><code>blog</code></li>
+<li><code>projects</code></li>
+<li><code>talks</code></li>
+</ul>
+<p>They work pretty much the same. If the collection is empty, the UI doesn’t show it.</p>
+<p>For adding new collections, see the source code and follow the same pattern.</p>
+<h2 id="adding-content-to-the-collection">Adding content to the collection</h2>
+<p>The collection’s content is located in <code>src/content/COLLECTION</code>.</p>
+<p>Inside, add a folder with your content in <code>index.mdx</code> (or <code>index.md</code>) file.</p>
+<pre class="astro-code css-variables" style="background-color:var(--astro-code-background);color:var(--astro-code-foreground);overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span>📁 /src/content/blog</span></span>
+<span class="line"><span>└── 📁 post-1</span></span>
+<span class="line"><span>      └── 📄 index.md</span></span>
+<span class="line"><span>└── 📁 post-2</span></span>
+<span class="line"><span>      └── 📄 index.mdx</span></span></code></pre>
+<p>In the above example, two blog posts will be generated with the folder name representing the slug.</p>
+<ul>
+<li><code>https://example.com/blog/post-1</code></li>
+<li><code>https://example.com/blog/post-2</code></li>
+</ul>
+<hr/>
+<h3 id="provide-metadata">Provide metadata</h3>
+<p>Metadata is required for each entry.</p>
+<pre class="astro-code css-variables" style="background-color:var(--astro-code-background);color:var(--astro-code-foreground);overflow-x:auto" tabindex="0" data-language="astro"><code><span class="line"><span style="color:var(--astro-code-token-comment)">---</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">title</span><span style="color:var(--astro-code-token-punctuation)">:</span><span style="color:var(--astro-code-token-string-expression)"> &quot;How to add a blog post&quot;</span><span style="color:var(--astro-code-foreground)">;</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">description</span><span style="color:var(--astro-code-token-punctuation)">:</span><span style="color:var(--astro-code-token-string-expression)"> &quot;Steo-by-step guide on adding a blog post&quot;</span><span style="color:var(--astro-code-foreground)">;</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">date</span><span style="color:var(--astro-code-token-punctuation)">:</span><span style="color:var(--astro-code-token-string-expression)"> &quot;2024-03-21&quot;</span><span style="color:var(--astro-code-foreground)">;</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">lastUpdateDate</span><span style="color:var(--astro-code-token-punctuation)">:</span><span style="color:var(--astro-code-token-string-expression)"> &quot;2025-01-13&quot;</span><span style="color:var(--astro-code-foreground)">;</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">ogImage</span><span style="color:var(--astro-code-token-punctuation)">:</span><span style="color:var(--astro-code-token-string-expression)"> &quot;/images/article-og-image.png&quot;</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">draft</span><span style="color:var(--astro-code-token-punctuation)">:</span><span style="color:var(--astro-code-token-constant)"> false</span><span style="color:var(--astro-code-foreground)">;</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">tags</span><span style="color:var(--astro-code-token-punctuation)">:</span></span>
+<span class="line"><span style="color:var(--astro-code-token-keyword)">  -</span><span style="color:var(--astro-code-foreground)"> guide</span></span>
+<span class="line"><span style="color:var(--astro-code-token-keyword)">  -</span><span style="color:var(--astro-code-foreground)"> important</span></span>
+<span class="line"><span style="color:var(--astro-code-token-comment)">---</span></span></code></pre>
+<ul>
+<li><code>title</code> - will be used as header, placed in metadata and RSS.</li>
+<li><code>description</code> - (optional) will be used as a subtitle, placed in metadata and in RSS. If missing, the global page description will be used in the metadata.</li>
+<li><code>date</code> - publish date in format: <code>YYYY-MM-DD</code></li>
+<li><code>lastUpdateDate</code> - (optional) date of the last update in format: <code>YYYY-MM-DD</code></li>
+<li><code>ogImage</code> - (optional) path (relative to the public folder) to the open graph image for this entry</li>
+<li><code>draft</code> - (optional) if <code>true</code>, the entry won’t be included into final build</li>
+<li><code>tags</code> - (optional) list of tags.</li>
+</ul>
+<div class="not-prose callout callout-info" data-astro-cid-mrmim4ef> <span class="emoji pointer-events-none select-none" data-astro-cid-mrmim4ef>ℹ️</span> <p>It’s not required, but it’s recommended to keep the title as the URL-friendly version of the post title. According to this guide, the <code>index.mdx</code> with the above content should be placed in <code>src/content/blog/how-to-add-a-blog-post</code>.</p> </div> 
+<hr/>
+<h3 id="write-content">Write content</h3>
+<p>All that’s left to do is write the content under the metadata.</p>
+<pre class="astro-code css-variables" style="background-color:var(--astro-code-background);color:var(--astro-code-foreground);overflow-x:auto" tabindex="0" data-language="astro"><code><span class="line"><span style="color:var(--astro-code-token-comment)">---</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">title</span><span style="color:var(--astro-code-token-punctuation)">:</span><span style="color:var(--astro-code-token-string-expression)"> &quot;How to add a blog post&quot;</span><span style="color:var(--astro-code-foreground)">;</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">description</span><span style="color:var(--astro-code-token-punctuation)">:</span><span style="color:var(--astro-code-token-string-expression)"> &quot;Steo-by-step guide on adding a blog post&quot;</span><span style="color:var(--astro-code-foreground)">;</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">date</span><span style="color:var(--astro-code-token-punctuation)">:</span><span style="color:var(--astro-code-token-string-expression)"> &quot;2024-03-21&quot;</span><span style="color:var(--astro-code-foreground)">;</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">lastUpdateDate</span><span style="color:var(--astro-code-token-punctuation)">:</span><span style="color:var(--astro-code-token-string-expression)"> &quot;2025-01-13&quot;</span><span style="color:var(--astro-code-foreground)">;</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">ogImage</span><span style="color:var(--astro-code-token-punctuation)">:</span><span style="color:var(--astro-code-token-string-expression)"> &quot;/images/article-og-image.png&quot;</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">draft</span><span style="color:var(--astro-code-token-punctuation)">:</span><span style="color:var(--astro-code-token-constant)"> false</span><span style="color:var(--astro-code-foreground)">;</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">tags</span><span style="color:var(--astro-code-token-punctuation)">:</span></span>
+<span class="line"><span style="color:var(--astro-code-token-keyword)">  -</span><span style="color:var(--astro-code-foreground)"> guide</span></span>
+<span class="line"><span style="color:var(--astro-code-token-keyword)">  -</span><span style="color:var(--astro-code-foreground)"> important</span></span>
+<span class="line"><span style="color:var(--astro-code-token-comment)">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">## Before adding a blog post...</span></span>
+<span class="line"><span style="color:var(--astro-code-token-comment)">&lt;!-- content --&gt;</span></span></code></pre>
+<p>Content is expected to be in the Markdown format (MDX allowed in <code>index.mdx</code>).</p>
+<p>Read more:</p>
+<ul>
+<li><a href="../content-and-syntax-guide">Syntax guide</a></li>
+</ul>
+<hr/>
+<h2 id="order">Order</h2>
+<p>The order of the entries is determined by the <code>date</code> field. The newest entries will be displayed first.</p>
+<p>However, if <code>lastUpdateDate</code> is present, the entry will be sorted by this field instead.</p> <hr class="my-4"> <div class="my-12"><div class="start mt-4 flex items-center"> <img src="/caseyjdavis.png" alt="Casey Davis" class="mr-8 h-24 w-24 rounded-full"> <div class="flex-grow"> <div> <strong>Hi, I'm Casey Davis</strong> </div> <div style="font-size: 0.875rem"> <p>
+I am a Systems Engineer that loves solving problems with technology. I have worked in technology for over 20 years and use modern tools and methodologies to deploy and maintain systems. I am passionate about learning and sharing knowledge with others.
+</p> </div> <p> <strong>Contact me:</strong> </p> <p class="mb-0" style="font-size: 0.875rem">  <a href="mailto:casey.j.davis@gmail.com" target="_blank"> casey.j.davis@gmail.com </a> <span class="mx-2"> | </span>  <a href="https://github.com/caseyjdavis" target="_blank"> GitHub </a> <span class="mx-2"> | </span>  <a href="https://www.linkedin.com/in/mrcaseyjdavis/" target="_blank"> LinkedIn </a> <span class="mx-2"></span>  </p> </div> </div></div> <hr class="my-4"> <div class="my-4"> <div class="grid grid-cols-2 gap-1.5 sm:gap-3"> <a href="/blog/everything-new-in-astro-milidev" class="group relative flex flex-nowrap rounded-lg border border-black/15 px-4 py-3 pl-10 no-underline transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="absolute left-2 top-1/2 size-5 -translate-y-1/2 fill-none stroke-current stroke-2"> <line x1="5" y1="12" x2="19" y2="12" class="translate-x-3 scale-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100 group-focus-visible:translate-x-0 group-focus-visible:scale-x-100"></line> <polyline points="12 5 5 12 12 19" class="translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-focus-visible:translate-x-0"></polyline> </svg> <div class="flex items-center text-sm">Everything new in Astro Milidev</div> </a> <a href="/blog/content-and-syntax-guide" class="group relative flex flex-grow flex-row-reverse flex-nowrap rounded-lg border border-black/15 px-4 py-4 pr-10 no-underline transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="absolute right-2 top-1/2 size-5 -translate-y-1/2 fill-none stroke-current stroke-2"> <line x1="5" y1="12" x2="19" y2="12" class="translate-x-3 scale-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100 group-focus-visible:translate-x-0 group-focus-visible:scale-x-100"></line> <polyline points="12 5 19 12 12 19" class="-translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-focus-visible:translate-x-0"></polyline> </svg> <div class="flex items-center text-sm">Content and syntax guide</div> </a> </div> </div> <div data-pagefind-ignore style="display: flex; justify-content: center; align-items: center; "> <span style="font-size: 0.875rem">Content licenced under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" target="_blank" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]"> CC BY-NC-ND 4.0 </a></span> </div> <div class="mt-8"> <div class="giscus"></div> <script src="https://giscus.app/client.js" data-repo="bartoszlenar/astro-milidev" data-repo-id="R_kgDONiccDA" data-category="Announcements" data-category-id="DIC_kwDONiccDM4Cl5CN" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script> </div> </article> </div>  </main> <footer class="animate"> <div class="mx-auto max-w-screen-sm px-3"> <div class="relative"> <div class="absolute -top-12 right-0"> <button id="back-to-top" class="group relative flex w-fit flex-nowrap rounded border border-black/15 py-1.5 pl-8 pr-3 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="absolute left-2 top-1/2 size-4 -translate-y-1/2 rotate-90 fill-none stroke-current stroke-2"> <line x1="5" y1="12" x2="19" y2="12" class="translate-x-2 scale-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100 group-focus-visible:translate-x-0 group-focus-visible:scale-x-100"></line> <polyline points="12 5 5 12 12 19" class="translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-focus-visible:translate-x-0"></polyline> </svg> <div class="text-sm">Back to top</div> </button> </div> </div> <div class="flex items-center justify-between"> <div>2025 | Casey J Davis | Casey Davis</div> <div class="flex flex-wrap items-center gap-1.5"> <button id="light-theme-button" aria-label="Light theme" class="group flex size-9 items-center justify-center rounded border border-black/15 hover:bg-black/5 focus-visible:bg-black/5 dark:border-white/20 dark:hover:bg-white/5 dark:focus-visible:bg-white/5"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="transition-colors duration-300 ease-in-out group-hover:animate-pulse group-hover:stroke-black group-focus-visible:animate-pulse group-focus-visible:stroke-black group-hover:dark:stroke-white dark:group-focus-visible:stroke-white"> <circle cx="12" cy="12" r="5"></circle> <line x1="12" y1="1" x2="12" y2="3"></line> <line x1="12" y1="21" x2="12" y2="23"></line> <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line> <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line> <line x1="1" y1="12" x2="3" y2="12"></line> <line x1="21" y1="12" x2="23" y2="12"></line> <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line> <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line> </svg> </button> <button id="dark-theme-button" aria-label="Dark theme" class="group flex size-9 items-center justify-center rounded border border-black/15 hover:bg-black/5 focus-visible:bg-black/5 dark:border-white/20 dark:hover:bg-white/5 dark:focus-visible:bg-white/5"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="transition-colors duration-300 ease-in-out group-hover:animate-pulse group-hover:stroke-black group-focus-visible:animate-pulse group-focus-visible:stroke-black group-hover:dark:stroke-white dark:group-focus-visible:stroke-white"> <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path> </svg> </button> <button id="system-theme-button" aria-label="System theme" class="group flex size-9 items-center justify-center rounded border border-black/15 hover:bg-black/5 focus-visible:bg-black/5 dark:border-white/20 dark:hover:bg-white/5 dark:focus-visible:bg-white/5"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="transition-colors duration-300 ease-in-out group-hover:animate-pulse group-hover:stroke-black group-focus-visible:animate-pulse group-focus-visible:stroke-black group-hover:dark:stroke-white dark:group-focus-visible:stroke-white"> <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect> <line x1="8" y1="21" x2="16" y2="21"></line> <line x1="12" y1="17" x2="12" y2="21"></line> </svg> </button> </div> </div> </div> </footer> <aside data-pagefind-ignore> <div id="backdrop" class="bg-[rgba(0, 0, 0, 0.5] invisible fixed left-0 top-0 z-50 flex h-screen w-full justify-center p-6 backdrop-blur-sm" data-astro-transition-persist="astro-3snakcvo-2"> <div id="pagefind-container" class="m-0 flex h-fit max-h-[80%] w-full max-w-screen-sm flex-col overflow-auto rounded border border-black/15 bg-neutral-100 p-2 px-4 py-3 shadow-lg dark:border-white/20 dark:bg-neutral-900"> <div id="search" class="pagefind-ui pagefind-init" data-pagefind-ui data-bundle-path="/pagefind/" data-ui-options="{&#34;showImages&#34;:false,&#34;excerptLength&#34;:15,&#34;resetStyles&#34;:false}"></div> <script type="module" src="/_astro/Search.astro_astro_type_script_index_0_lang.C4tRTXsn.js"></script> <div class="mr-2 pb-1 pt-4 text-right text-xs dark:prose-invert">
+Press <span class="prose text-xs dark:prose-invert"><kbd class="">Esc</kbd></span> or click anywhere to close
+</div> </div> </div> </aside> <script>
+  const magnifyingGlass = document.getElementById("magnifying-glass");
+  const backdrop = document.getElementById("backdrop");
+
+  function openPagefind() {
+    const searchDiv = document.getElementById("search");
+    const search = searchDiv.querySelector("input");
+    setTimeout(() => {
+      search.focus();
+    }, 0);
+    backdrop?.classList.remove("invisible");
+    backdrop?.classList.add("visible");
+  }
+
+  function closePagefind() {
+    const search = document.getElementById("search");
+    search.value = "";
+    backdrop?.classList.remove("visible");
+    backdrop?.classList.add("invisible");
+  }
+
+  // open pagefind
+  magnifyingGlass?.addEventListener("click", () => {
+    openPagefind();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "/") {
+      e.preventDefault();
+      openPagefind();
+    } else if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+      e.preventDefault();
+      openPagefind();
+    }
+  });
+
+  // close pagefind
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closePagefind();
+    }
+  });
+
+  // close pagefind when searched result(link) clicked
+  document.addEventListener("click", (event) => {
+    if (event.target.classList.contains("pagefind-ui__result-link")) {
+      closePagefind();
+    }
+  });
+
+  backdrop?.addEventListener("click", (event) => {
+    if (!event.target.closest("#pagefind-container")) {
+      closePagefind();
+    }
+  });
+
+  // prevent form submission
+  const form = document.getElementById("form");
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+  });
+</script>  </body></html>

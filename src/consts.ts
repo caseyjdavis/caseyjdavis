@@ -13,7 +13,7 @@ export type GlobalSite = {
 };
 
 export const GLOBAL: GlobalSite = {
-  title: "Casey J Davis",
+  title: "Casey J. Davis",
   description: "Systems Engineer in Denver, Colorado",
   author: "Casey Davis",
   authorPhotoSrc: "/caseyjdavis.png",

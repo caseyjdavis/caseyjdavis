@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="95.204468mm"
+   height="26.526604mm"
+   viewBox="0 0 95.204468 26.526604"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="layer1"
+     transform="translate(-52.930282,-64.462716)">
+    <path
+       style="fill:#458588;fill-opacity:1;stroke:none;stroke-width:0.240588;stroke-opacity:1"
+       d="m 68.189633,64.611299 h 72.177987 l 7.76713,13.319741 -7.34774,13.026906 H 67.347913 l 11.31318,-13.682321 z"
+       id="path1-5" />
+    <path
+       style="fill:#fe8019;fill-opacity:1;stroke:none;stroke-width:0.251091;stroke-opacity:1"
+       d="m 52.930282,64.462716 64.939818,0.179958 7.28057,13.319741 -7.18369,13.026906 H 53.093216 Z"
+       id="path1" />
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.2889px;font-family:Consolas;-inkscape-font-specification:'Consolas Bold Italic';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#ebdbb2;fill-opacity:1;stroke-width:0.243557"
+       x="63.313522"
+       y="70.422035"
+       id="text2"
+       transform="scale(0.85829307,1.1651032)"><tspan
+         id="tspan2"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.2889px;font-family:'Fira Code';-inkscape-font-specification:'Fira Code Bold';fill:#fbf1c7;fill-opacity:1;stroke-width:0.243557"
+         x="63.313522"
+         y="70.422035">CASEYJDAVIS</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:'Fira Code';-inkscape-font-specification:'Fira Code Bold';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#fbf1c7;fill-opacity:1;stroke:none;stroke-width:0.251845;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+       x="126.87022"
+       y="80.621086"
+       id="text6"><tspan
+         id="tspan6"
+         style="font-size:8.46667px;stroke-width:0.251845"
+         x="126.87022"
+         y="80.621086">COM</tspan></text>
+  </g>
+</svg>

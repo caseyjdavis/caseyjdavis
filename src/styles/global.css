@@ -47,10 +47,6 @@ article {
 
 }
 
-strong {
-  @apply text-[#3c3836] dark:text-[#ebdbb2]; /* Gruvbox text colors */
-}
-
 @layer utilities {
   article a {
     @apply font-sans text-current underline underline-offset-[3px];

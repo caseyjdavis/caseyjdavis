@@ -14,7 +14,7 @@ const { title, searchable } = Astro.props;
   <Container>
     <aside {...!searchable ? { "data-pagefind-ignore": true } : {}}>
       <div class="space-y-10">
-        <h1 class="animate text-3xl font-semibold text-[#282828] dark:text-[#ebdbb2]">
+        <h1 class="animate text-3xl font-semibold text-black dark:text-white">
           {title}
         </h1>
         <div class="space-y-4">

@@ -1,1 +1,7 @@
-export default new Map();
+
+import __ASTRO_IMAGE_IMPORT_DjD2P from "./stagingserver1.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog%2Fmigrate-to-entra-connect-p1%2Findex.md";
+import __ASTRO_IMAGE_IMPORT_26F7Sy from "./adconnect-exportsettings.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog%2Fmigrate-to-entra-connect-p1%2Findex.md";
+import __ASTRO_IMAGE_IMPORT_272q0U from "./adconnect-json.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog%2Fmigrate-to-entra-connect-p1%2Findex.md";
+import __ASTRO_IMAGE_IMPORT_bYGci from "./entraconnect-import.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog%2Fmigrate-to-entra-connect-p1%2Findex.md";
+export default new Map([["./stagingserver1.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog%2Fmigrate-to-entra-connect-p1%2Findex.md", __ASTRO_IMAGE_IMPORT_DjD2P], ["./adconnect-exportsettings.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog%2Fmigrate-to-entra-connect-p1%2Findex.md", __ASTRO_IMAGE_IMPORT_26F7Sy], ["./adconnect-json.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog%2Fmigrate-to-entra-connect-p1%2Findex.md", __ASTRO_IMAGE_IMPORT_272q0U], ["./entraconnect-import.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog%2Fmigrate-to-entra-connect-p1%2Findex.md", __ASTRO_IMAGE_IMPORT_bYGci]]);
+		

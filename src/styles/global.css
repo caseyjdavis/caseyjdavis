@@ -54,7 +54,7 @@ strong {
 @layer utilities {
   article a {
     @apply font-sans text-current underline underline-offset-[3px];
-    @apply decoration-[#3c3836] dark:decoration-[#fabd2f]; /* Gruvbox decoration colors */
+    @apply decoration-[#3c3836] dark:decoration-[#ebdbb2]; /* Gruvbox decoration colors */
     @apply transition-colors duration-300 ease-in-out;
   }
   article a:hover {

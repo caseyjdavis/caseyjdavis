@@ -35,8 +35,8 @@ type HomeSite =  {
 }
 
 export const HOME: HomeSite = {
-  blogEntries: 5,
-  projectEntries: 3,
+  blogEntries: 10,
+  projectEntries: 5,
   talkEntries: 3,
 };
 

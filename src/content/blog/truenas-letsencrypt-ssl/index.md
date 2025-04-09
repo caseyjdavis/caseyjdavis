@@ -4,50 +4,50 @@ date: "2025-03-24"
 draft: false
 ---
 
-## Intro
+## Introduction
 
-TrueNAS has a built-in acme dns authenticator available via the web ui which means you can easily generate SSL certificates for the admin portal. Here are the steps to setup Cloudflare as an authenticator using Let's Encrypt for automatic SSL certificates for TrueNAS.
+TrueNAS includes a built-in ACME DNS authenticator accessible through its web interface, enabling seamless generation of SSL certificates for the administrative portal. This guide outlines the steps to configure Cloudflare as an authenticator with Let's Encrypt for automated SSL certificate management in TrueNAS.
 
-## Edit User
+## Update User Information
 
-First you need to edit a user on your TrueNAS installation to have a valid e-mail address. Here I am editing the root user and putting in my e-mail. This is required to generate a certificate.
+Begin by updating a user account on your TrueNAS system with a valid email address. In this example, the root user is updated with an email address, which is a prerequisite for generating a certificate.
 
-![Add Cloudflare e-mail to local user](./edit-user.png)
+![Update Cloudflare email for local user](./edit-user.png)
 
-## Add ACME DNS Authenticator
+## Configure ACME DNS Authenticator
 
-Next you add a DNS authenticator. In this case I am using Cloudflare because my domain is hosted there. You will need to generate a API token that allows you to edit DNS zones. Name the authenticator and paste your token in the API Token field. Note: If you use a token you do NOT have to enter your Cloudflare email and API Key.
+Next, configure a DNS authenticator. This guide uses Cloudflare as the DNS provider. Generate an API token with permissions to edit DNS zones, then name the authenticator and input the token in the API Token field. Note: If using an API token, you do not need to provide your Cloudflare email or API key.
 
-![Adding ACMD DNS Authenticator](./acme-dns-authenticator.png)
+![Configuring ACME DNS Authenticator](./acme-dns-authenticator.png)
 
-## Add Certificate Signing Request
+## Create a Certificate Signing Request (CSR)
 
-Here you enter the details of the Certificate Signing Request you want to be visible on the certificate details. Fill in the required fields and save.
+Provide the necessary details for the Certificate Signing Request (CSR) to populate the certificate's information. Complete the required fields and save the CSR.
 
-![Generating a Certificate Signing Request in TrueNAS](./add-certificate-signing-request.png)
+![Creating a Certificate Signing Request in TrueNAS](./add-certificate-signing-request.png)
 
-Once you have generated a CSR, then you turn around and click the wrench icon 🔧 in the web gui and that will open the wizard to generate the certificate.
+After generating the CSR, click the wrench icon 🔧 in the web interface to open the wizard for certificate generation.
 
-![Generating a Certificate Signing Request in TrueNAS](./add-certificate-signing-request%2002.png)
+![Certificate Signing Request Wizard in TrueNAS](./add-certificate-signing-request%2002.png)
 
-## Generating a certificate
+## Generate the SSL Certificate
 
-For the identifier I use `letsencrypt`, accept the Terms of Service, I set the certificate to renew every 30 days since this is local on my home lab. Make sure to select "Production Directory", select the domain and the authenticator and click Save.
+For the identifier, use `letsencrypt`, accept the Terms of Service, and set the certificate to renew every 30 days (recommended for home lab environments). Select "Production Directory," choose the domain, assign the authenticator, and save the configuration.
 
-![Let's Encrypt Certificate for TrueNAS](./acme-certificate.png)
+![Generating Let's Encrypt Certificate for TrueNAS](./acme-certificate.png)
 
-A pop-up box will open with progress and you can see if the certificate was provisioned. This is what a successful DNS challenge will look like.
+A progress pop-up will display the status of the certificate provisioning. A successful DNS challenge will appear as shown below.
 
-![Let's Encrypt Certificate for TrueNAS](./dns-challenge.png)
+![Successful DNS Challenge for Let's Encrypt](./dns-challenge.png)
 
-## Activating new certificate
+## Activate the New Certificate
 
-Now that you have generated a valid SSL cert you need to make sure the web gui in TrueNAS uses that certificate. Go to System Settings > General > GUI > Settings. In this menu you will select your new cert from the drop down box and make sure to click the HTTP > HTTPS Redirect. Click Save. The web interface will need to restart.
+Once the SSL certificate is generated, configure the TrueNAS web interface to use it. Navigate to System Settings > General > GUI > Settings. Select the new certificate from the dropdown menu, enable the "HTTP > HTTPS Redirect" option, and save the changes. The web interface will restart to apply the new settings.
 
-![Activate Let's Encrypt Certificate for TrueNAS](./gui-settings.png)
+![Activate Let's Encrypt Certificate in TrueNAS](./gui-settings.png)
 
-## Verifying SSL cert
+## Verify the SSL Certificate
 
-If you have done everything correctly the certificate will be active, and you can click on the lock in your browser window to confirm the certificate has been issued by Let's Encrypt.
+To confirm the certificate is active, click the lock icon in your browser's address bar. Verify that the certificate is issued by Let's Encrypt.
 
-![Verify Let's Encrypt Certificate for TrueNAS](./ssl-verified.png)
+![SSL Certificate Verification in TrueNAS](./ssl-verified.png)

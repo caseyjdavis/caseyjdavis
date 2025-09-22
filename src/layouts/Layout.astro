@@ -20,17 +20,17 @@ const finalTitle = title ? `${title} - ${GLOBAL.title}` : GLOBAL.title;
 <html lang="en">
   <head>
     <Head title={finalTitle} {description} {ogImage} />
-    
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QMD5969HLB"></script>
-    <script>
+    <script is:inline src="https://www.googletagmanager.com/gtag/js?id=G-QMD5969HLB"></script>
+    <script is:inline>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag() {
+        dataLayer.push(arguments);
+      }
       gtag('js', new Date());
     
       gtag('config', 'G-QMD5969HLB');
     </script>
-
   </head>
   <body>
     <Header />

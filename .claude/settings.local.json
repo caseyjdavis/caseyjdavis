@@ -9,7 +9,9 @@
       "Bash(npm run pages:build:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "WebFetch(domain:opennext.js.org)",
+      "WebFetch(domain:github.com)"
     ],
     "deny": [],
     "ask": []

@@ -1,23 +1,12 @@
-#:schema node_modules/wrangler/config-schema.json
-name = "caseyjdavis"
-compatibility_date = "2024-09-23"
-compatibility_flags = ["nodejs_compat"]
-pages_build_output_dir = ".open-next"
-
-[[durable_objects.bindings]]
-name = "DO_QUEUE"
-class_name = "DOQueueHandler"
-script_name = "caseyjdavis"
-
-[[durable_objects.bindings]]
-name = "DO_SHARDED_TAG_CACHE"
-class_name = "DOShardedTagCache"
-script_name = "caseyjdavis"
-
-[[durable_objects.bindings]]
-name = "BUCKET_CACHE_PURGE"
-class_name = "BucketCachePurge"
-script_name = "caseyjdavis"
-
-[vars]
-NODE_VERSION = "20"
+{
+  "main": ".open-next/worker.js",
+  "name": "my-app",
+  "compatibility_date": "2025-03-25",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  }
+}

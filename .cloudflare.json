@@ -1,0 +1,7 @@
+{
+  "$schema": "https://developers.cloudflare.com/pages/functions/wrangler-configuration/#schema",
+  "name": "caseyjdavis",
+  "pages_build_output_dir": ".worker-next",
+  "compatibility_date": "2024-09-23",
+  "compatibility_flags": ["nodejs_compat"]
+}

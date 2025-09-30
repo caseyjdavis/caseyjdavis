@@ -2,7 +2,7 @@
 name = "caseyjdavis"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
-pages_build_output_dir = ".worker-next"
+pages_build_output_dir = ".open-next"
 
 [vars]
 NODE_VERSION = "20"

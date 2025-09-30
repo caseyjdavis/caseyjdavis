@@ -16,7 +16,7 @@ export default function Home() {
             priority
           />
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-            👋 Hi, I'm Casey an IT Consultant
+            👋 Hi, I&apos;m Casey an IT Consultant
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
             I help businesses navigate complex technical challenges and drive digital transformation. Located in Edgewater, Colorado.
@@ -86,7 +86,7 @@ export default function Home() {
                 <h3 className="text-xl font-semibold dark:text-white">Microsoft Entra Tenant Migration</h3>
               </div>
               <p className="text-gray-600 dark:text-gray-300 mb-4">
-                Migrated an existing organization's Office 365 tenant with zero downtime, streamlined device deployment using Microsoft Autopilot and automated user account creation.
+                Migrated an existing organization&apos;s Office 365 tenant with zero downtime, streamlined device deployment using Microsoft Autopilot and automated user account creation.
               </p>
               <div className="flex gap-2 flex-wrap">
                 <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded">Entra</span>
@@ -121,7 +121,7 @@ export default function Home() {
             Ready to level up your IT?
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            Let's discuss how I can help your business succeed
+            Let&apos;s discuss how I can help your business succeed
           </p>
           <Link
             href="/contact"

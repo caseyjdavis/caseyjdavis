@@ -66,7 +66,7 @@ export default function ContactPage() {
       } else {
         setStatus("error");
       }
-    } catch (error) {
+    } catch {
       setStatus("error");
     }
   };
@@ -86,7 +86,7 @@ export default function ContactPage() {
             Get in Touch
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300">
-            I take on any size project. Let's discuss how I can help your business succeed.
+            I take on any size project. Let&apos;s discuss how I can help your business succeed.
           </p>
         </div>
 
@@ -96,7 +96,7 @@ export default function ContactPage() {
               <div className="text-5xl mb-4">🎉</div>
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Thank you!</h2>
               <p className="text-gray-600 dark:text-gray-300 mb-6">
-                I've received your message and will get back to you soon!
+                I&apos;ve received your message and will get back to you soon!
               </p>
               <button
                 onClick={() => setStatus("idle")}

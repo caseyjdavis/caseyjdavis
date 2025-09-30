@@ -52,7 +52,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       excerpt: data.excerpt || "",
       content,
     };
-  } catch (error) {
+  } catch {
     return null;
   }
 }

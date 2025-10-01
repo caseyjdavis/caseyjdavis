@@ -200,7 +200,20 @@ function resolveCdnInvalidation(value = "dummy") {
 }
 
 // open-next.config.ts
-var open_next_config_default = defineCloudflareConfig();
+var open_next_config_default = defineCloudflareConfig({
+  default: {
+    override: {
+      wrapper: "cloudflare-node",
+      converter: "node",
+      // Suppress direct-eval warning from bundled dependencies like gray-matter
+      esbuildOptions: {
+        logOverride: {
+          "direct-eval": "silent"
+        }
+      }
+    }
+  }
+});
 export {
   open_next_config_default as default
 };
